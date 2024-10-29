@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <title>Snake Game</title>
+    <script defer src="https://pro.fontawesome.com/releases/v5.10.0/js/all.js"
+        integrity="sha384-G/ZR3ntz68JZrH4pfPJyRbjW+c0+ojii5f+GYiYwldYU69A+Ejat6yIfLSxljXxD"
+        crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+   
+    <audio id="backgroundAudio" loop>
+        <source src="Background.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="logo">
+        <img src="website-logo.png" alt="website-logo">
+    </div>
+
+    <div class="hexagon-container">
+        <div class="hexagon-text">How to Play</div>
+        <div class="hexagon-details">Click for details</div>
+    </div>
+
+    <!-- Initial Screen with Play Button and How to Play Instructions -->
+    <div id="startScreen" class="container">
+        <div id="howToPlay">
+            <p>Use the arrow keys to move the snake.</p>
+            <p>Collect food to grow longer and increase your score.</p>
+            <p>Avoid hitting the walls or yourself!</p>
+        </div>
+        <button id="playButton">Play</button>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="container noselect" style="display: none;">
+        <div class="wrapper">
+            <button id="replay">
+                <i class="fas fa-play"></i>
+                RESTART
+            </button>
+            <div id="canvas"></div>
+            <div id="ui">
+                <span id="score">SCORE:00</span>
+            </div>
+        </div>
+        <div id="author">
+            <h1>SNAKE</h1> <span>by Moonpreneur</span>
+        </div>
+    </div>
+
+    <!-- Game Rules Screen -->
+    <div id="gameRules" class="container" style="display: none;">
+        <div class="rules-content">
+            <h2>Game Rules</h2>
+            <p>Capturing Territory: Capture territory to level up and gain a speed bonus...</p>
+            <p>Death: Slice other player's tail to eliminate them...</p>
+            <p>Becoming King and Winning: Reach a threshold of total map ownership (20%) to become the King...</p>
+            <button id="closeRules">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const backgroundAudio = document.getElementById("backgroundAudio");
+
+        // Start screen loads with background sound
+        window.onload = () => {
+            backgroundAudio.play();
+        };
+
+        // Handle the play button and transition to game screen
+        document.getElementById("playButton").addEventListener("click", function() {
+            document.getElementById("startScreen").style.display = "none";
+            document.getElementById("gameScreen").style.display = "block";
+            document.querySelector(".hexagon-container").style.display = "none";
+
+            // Start playing background sound on the game screen
+            backgroundAudio.play();
+        });
+
+        // Show game rules on "How to Play" click
+        document.querySelector(".hexagon-container").addEventListener("click", function() {
+            document.getElementById("gameRules").style.display = "flex";
+
+            // Start playing background sound when the "How to Play" section is open
+            backgroundAudio.play();
+        });
+
+        // Close the game rules screen
+        document.getElementById("closeRules").addEventListener("click", function() {
+            document.getElementById("gameRules").style.display = "none";
+
+            // Continue background sound if the game screen is active
+            if (document.getElementById("gameScreen").style.display === "block") {
+                backgroundAudio.play();
+            } else {
+                backgroundAudio.pause();
+            }
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
